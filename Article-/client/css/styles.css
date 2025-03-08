@@ -1,0 +1,229 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+    padding: 0 15px; /* Add padding to the left and right */
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* Ensure padding doesn't affect the width */
+  }
+  
+  button {
+    width: calc(100% - 30px); /* Adjust button width to account for padding */
+    margin: 0 15px; /* Add margin to match the padding of .form-group */
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  /*home page*/
+  .container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Search Bar Styles */
+  /* Search Bar Styles */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between input and button */
+  width: 100%;
+}
+
+#search-input {
+  flex: 3; /* 75% width */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 40px;
+  min-width: 150px;
+}
+
+#search-button {
+  flex: 1; /* 25% width */
+  padding: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 40px;
+  white-space: nowrap;
+  min-width: 80px; /* Prevents it from becoming too small */
+}
+
+  
+  /* Add FAQ Button Styles */
+  #add-faq-button {
+    display: block;
+    width: auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 40px;
+    margin-top: 20px; /* Add space above the button */
+  }
+  
+  
+  #add-faq-button:hover {
+    background-color: #218838;
+  }
+  
+  /* FAQ List Styles */
+  .faq-list {
+    margin-top: 20px;
+  }
+  
+  .faq-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+  
+  .faq-question {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .faq-answer {
+    margin: 10px 0 0;
+    font-size: 16px;
+    color: #555;
+  }
+  /*FAQ*/
+  .container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+h1 {
+  color:#007bff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+  display: flex;
+  flex-direction: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical; /* Allows vertical resizing */
+    font-family: Arial, sans-serif; /* Ensures consistent font */
+}
+
+button {
+    padding: 10px;
+    background-color: #e90000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #b32323;
+}
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .container {
+      width: 90%;
+      padding: 15px;
+    }
+  
+    h2 {
+      font-size: 24px;
+    }
+  
+    input, button {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      width: 95%;
+      padding: 10px;
+    }
+  
+    h2 {
+      font-size: 20px;
+    }
+  
+    input, button {
+      font-size: 12px;
+    }
+  }
