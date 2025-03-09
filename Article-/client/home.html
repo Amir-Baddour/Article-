@@ -5,8 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAQ Home Page</title>
   <link rel="stylesheet" href="./css/styles.css">
+ 
 </head>
 <body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+  </nav>
+
   <div class="container">
     <!-- Search Bar -->
     <div class="search-bar">
@@ -15,28 +24,52 @@
     </div>
 
     <!-- Button to Add New FAQ -->
-    <button id="add-faq-button">Add New FAQ</button>
+    <button id="add-faq-button" onclick="window.location.href='FAQ.html'">
+      Add New FAQ
+    </button>
 
     <!-- FAQ List -->
     <div class="faq-list">
       <!-- FAQ Item 1 -->
       <div class="faq-item">
-        <h3 class="faq-question">What is Lorem Ipsum?</h3>
-        <p class="faq-answer">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        <h3 class="faq-question">What is the main focus of the paper "Hidden Technical Debt in Machine Learning Systems"?</h3>
+        <p class="faq-answer">The main focus of the paper is to highlight the concept of technical debt in machine learning (ML)
+           systems. It emphasizes that while ML systems can be developed and deployed quickly,
+            they often accumulate hidden technical debt due to their complexity, data dependencies, 
+            and system-level interactions. This debt can lead to significant long-term maintenance costs, 
+            and the paper aims to raise awareness about the risks and provide strategies to mitigate it.
+          </p>
       </div>
 
       <!-- FAQ Item 2 -->
       <div class="faq-item">
-        <h3 class="faq-question">Why do we use it?</h3>
-        <p class="faq-answer">It is a long-established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+        <h3 class="faq-question">What are some key factors that contribute to technical debt in ML systems?</h3>
+        <p class="faq-answer">The paper identifies several key factors that contribute to technical debt in ML systems, including:
+
+          Data dependencies: ML systems rely heavily on data, and changes in data can lead to unexpected issues.
+          
+          Feedback loops: Both direct and hidden feedback loops can cause systems to behave unpredictably.
+          
+          Anti-patterns: Common design flaws such as glue code, pipeline jungles, and dead experimental codepaths.
+          
+          Configuration debt: Managing configurations in large ML systems can be challenging, and errors can lead to significant problems.</p>
       </div>
 
       <!-- FAQ Item 3 -->
       <div class="faq-item">
-        <h3 class="faq-question">Where does it come from?</h3>
-        <p class="faq-answer">Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+        <h3 class="faq-question">What are some anti-patterns mentioned in the paper?</h3>
+        <p class="faq-answer">
+          The paper identifies several anti-patterns in ML system design, including:
+
+          Glue code: Excessive use of ad-hoc code to connect different components, leading to fragility.
+          
+          Pipeline jungles: Overly complex and tangled data processing pipelines.
+          
+          Dead experimental codepaths: Unused or obsolete code from past experiments that remains in the system.</p>
       </div>
     </div>
   </div>
+  \<script src="./js/add_quest.js"></script>
+  <script src="./js/filtering_FAQ.js"></script>
 </body>
 </html>

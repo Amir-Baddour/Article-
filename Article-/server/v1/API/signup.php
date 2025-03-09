@@ -1,72 +1,86 @@
 <?php
-header("Content-Type: application/json"); // Set response content type to JSON
+header('Content-Type: application/json'); // Set response type to JSON
 
-// Include necessary files
-require_once 'C:/xampp/htdocs/Article-/Article-/server/modul/user.php';// Function to validate input data
-function validateInput($data) {
-    $errors = [];
+// CORS headers
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
 
-    // Validate full name
-    if (empty($data['fullname'])) {
-        $errors[] = "Full name is required.";
-    }
+// Include the database connection
+$conn = require_once __DIR__ . '/server/connection/db.php';
 
-    // Validate email
-    if (empty($data['email'])) {
-        $errors[] = "Email is required.";
-    } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email format.";
-    }
-
-    // Validate password
-    if (empty($data['password'])) {
-        $errors[] = "Password is required.";
-    } elseif (strlen($data['password']) < 8) {
-        $errors[] = "Password must be at least 8 characters long.";
-    }
-
-    return $errors;
+// Check if the connection was successful
+if (!$conn) {
+    http_response_code(500); // Internal Server Error
+    echo json_encode(['error' => 'Database connection failed']);
+    exit();
 }
 
-// Handle POST request
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get input data from the request body
-    $input = json_decode(file_get_contents('php://input'), true);
+$method = $_SERVER['REQUEST_METHOD'];
 
-    // Validate input
-    $errors = validateInput($input);
+switch ($method) {
+    case 'POST':
+        // Get JSON input from the request body
+        $data = json_decode(file_get_contents('php://input'), true);
 
-    if (empty($errors)) {
-        // Create a new user
-        $user = new User();
-        $result = $user->createUser($input['fullname'], $input['email'], $input['password']);
-
-        if ($result) {
-            // Success response
-            echo json_encode([
-                'status' => 'success',
-                'message' => 'User registered successfully.'
-            ]);
-        } else {
-            // Database error
-            echo json_encode([
-                'status' => 'error',
-                'message' => 'Failed to register user. Please try again.'
-            ]);
+        // Validate JSON input
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            http_response_code(400); // Bad Request
+            echo json_encode(['error' => 'Invalid JSON']);
+            exit();
         }
-    } else {
-        // Validation error
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Validation failed.',
-            'errors' => $errors
-        ]);
-    }
-} else {
-    // Invalid request method
-    echo json_encode([
-        'status' => 'error',
-        'message' => 'Invalid request method. Only POST requests are allowed.'
-    ]);
+
+        // Check if required fields are present
+        if (isset($data['fullname'], $data['email'], $data['password'])) {
+            $fullName = $data['fullname'];
+            $email = $data['email'];
+            $password = $data['password'];
+
+            // Split full name into first and last name
+            $nameParts = explode(' ', $fullName, 2);
+            $firstName = $nameParts[0];
+            $lastName = isset($nameParts[1]) ? $nameParts[1] : '';
+
+            // Default values for missing fields
+            $phone = '';
+            $address = '';
+            $role = 'client'; // Default role for new users
+
+            // Check if the email already exists
+            $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                http_response_code(400); // Bad Request
+                echo json_encode(['error' => 'Email already exists']);
+            } else {
+                // Hash the password
+                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+                // Insert the new user into the database
+                $stmt = $conn->prepare("INSERT INTO users (email, password_hash, role, first_name, last_name, phone, address) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssssss", $email, $passwordHash, $role, $firstName, $lastName, $phone, $address);
+
+                if ($stmt->execute()) {
+                    echo json_encode(['success' => true, 'message' => 'User created successfully']);
+                } else {
+                    http_response_code(500); // Internal Server Error
+                    echo json_encode(['error' => 'Failed to create user']);
+                }
+            }
+
+            $stmt->close(); // Close the statement
+        } else {
+            http_response_code(400); // Bad Request
+            echo json_encode(['error' => 'Missing required fields']);
+        }
+        break;
+
+    default:
+        http_response_code(405); // Method Not Allowed
+        echo json_encode(['error' => 'Method not allowed']);
+        break;
 }
 ?>

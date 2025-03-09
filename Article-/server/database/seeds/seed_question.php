@@ -5,13 +5,16 @@ require_once __DIR__ . './server/connection/db.php';
 // Sample data
 $questions = [
     [
-        'question' => 'What is the capital of France?',
-        'answer' => 'Paris'
+        'question' => 'What are some anti-patterns mentioned in the paper?',
+        'answer' => 'The paper identifies several anti-patterns in ML system design, including:
+
+          Glue code: Excessive use of ad-hoc code to connect different components, leading to fragility.
+          
+          Pipeline jungles: Overly complex and tangled data processing pipelines.
+          
+          Dead experimental codepaths: Unused or obsolete code from past experiments that remains in the system'
     ],
-    [
-        'question' => 'What is 2 + 2?',
-        'answer' => '4'
-    ]
+   
 ];
 
 // Insert data
